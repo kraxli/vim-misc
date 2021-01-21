@@ -30,10 +30,18 @@ function! xolox#misc#open#file(location, ...) " {{{1
     endtry
     return
   elseif kraxli#wsl#is_wsl()
+    " change directory path to open Windows path to open with Windows executable
+    if !exists('g:mount_map') | let g:mount_map = {'/mnt/c': 'C:'} | endif
+    let location = a:location
+    for key in keys(g:mount_map)
+      let location = substitute(location, key, g:mount_map[key], '')
+    endfor
+    let location = substitute(location, '\/', '\\', 'g')
+
     " cmd.exe /C start <file>
-    let cmd = 'wslview '  . shellescape(a:location) . ' 2>&1'
+    let cmd = 'wslview '  . shellescape(location) . ' 2>&1'
     call s:handle_error(cmd, system(cmd))
-    " execute(cmd)  " here I would need !wslview in cmd
+    " execute(cmd)  " for 'execute' I would need !wslview in cmd
     return
   elseif xolox#misc#os#is_mac()
     call xolox#misc#msg#debug("vim-misc %s: Detected Mac OS X, using 'open' command to open %s ..", g:xolox#misc#version, string(a:location))
