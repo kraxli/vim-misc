@@ -1,6 +1,6 @@
 
 
-function! wsl#is_wsl()
+function! kraxli#wsl#is_wsl()
   if has("unix")
     let lines = readfile("/proc/version")
     if lines[0] =~ "Microsoft"
