@@ -993,6 +993,20 @@ first version string. Returns 1 (true) when it is, 0 (false) otherwise.
 
 <!-- End of generated documentation -->
 
+## Variables
+
+WSL is support through pure Linux applications or by leveraging Windows-applications as MsWord.
+You can set the following variables with WSL:
+```vim
+let g:wsl_use_windows_apps = 1
+let g:wsl_mount_map = {'/mnt/c': 'C:'}
+```
+You can also call Windows-apps as Linux executable by, e.g.
+```sh
+sudo ln -s "/mnt/c/Program Files/Mozilla Firefox/firefox.exe" /usr/bin/firefox
+```
+
+
 ## Contact
 
 If you have questions, bug reports, suggestions, etc. please open an issue or

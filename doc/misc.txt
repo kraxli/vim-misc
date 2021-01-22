@@ -119,7 +119,10 @@ function
    3. The |xolox#misc#timer#stop()| function
    4. The |xolox#misc#timer#force()| function
    5. The |xolox#misc#timer#convert()| function
-  19. Version string handling                    |misc-version-string-handling|
+  19. Variables                                                     |Variables|
+    1. The |g:wsl_use_windows_apps| option
+    2. The |g:wsl_mount_map| options
+  20. Version string handling                    |misc-version-string-handling|
    1. The |xolox#misc#version#parse()| function
    2. The |xolox#misc#version#at_least()| function
  4. Contact                                                      |misc-contact|
@@ -1149,6 +1152,30 @@ Convert the value returned by |xolox#misc#timer#start()| to a string
 representation of the elapsed time since |xolox#misc#timer#start()| was called.
 Other values are returned unmodified (this allows using it with Vim's |map()|
 function).
+
+-------------------------------------------------------------------------------
+                                                                    *Variables*
+Variables~
+
+-------------------------------------------------------------------------------
+The *g:wsl_use_windows_apps* option
+
+Should native Winows applicaitons be used to open exeternal files as e.g.
+'docx'?
+>
+g:wsl_use_windows_apps= 1
+<
+
+-------------------------------------------------------------------------------
+The *g:wsl_mount_map* options
+
+To open native Windows applications one need to path the original Windows path
+to the executable, e.g. `wslview C:/Users/kraxli/tests.docx`. A dictionary of
+key-value pairs with the key holding linux/wsl path and the value the Windows
+path needs to be provided.
+>
+g:wsl_mount_map = {'/mnt/c': 'C:'}
+<
 
 -------------------------------------------------------------------------------
                                                  *misc-version-string-handling*

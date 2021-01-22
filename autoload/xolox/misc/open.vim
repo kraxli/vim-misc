@@ -7,6 +7,10 @@
 let s:enoimpl = "vim-misc %s: %s() hasn't been implemented for your platform! If you have suggestions, please get in touch at https://github.com/xolox/vim-misc/issues"
 let s:handlers = ['gnome-open', 'kde-open', 'exo-open', 'xdg-open', 'cygstart']
 
+if !exists('g:wsl_use_windows_apps')
+  let g:use_windows_apps = 1
+endif
+
 function! xolox#misc#open#file(location, ...) " {{{1
   " Given a pathname or URL as the first argument, this opens the file with
   " the program associated with the file type. So for example a text file
@@ -29,14 +33,14 @@ function! xolox#misc#open#file(location, ...) " {{{1
       silent execute printf(command, xolox#misc#escape#shell(a:location))
     endtry
     return
-  elseif kraxli#wsl#is_wsl()
+  elseif kraxli#wsl#is_wsl() && g:wsl_use_windows_apps
     " change directory path to open Windows path to open with Windows executable
-    if !exists('g:mount_map') | let g:mount_map = {'/mnt/c': 'C:'} | endif
+    if !exists('g:wsl_mount_map') | let g:wsl_mount_map = {'/mnt/c': 'C:'} | endif
     let location = a:location
-    for key in keys(g:mount_map)
-      let location = substitute(location, key, g:mount_map[key], '')
+    for key in keys(g:wsl_mount_map)
+      let location = substitute(location, key, g:wsl_mount_map[key], '')
     endfor
-    let location = substitute(location, '\/', '\\', 'g')
+    " let location = substitute(location, '\/', '\\', 'g')
 
     " cmd.exe /C start <file>
     let cmd = 'wslview '  . shellescape(location) . ' 2>&1'
