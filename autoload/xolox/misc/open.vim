@@ -8,7 +8,7 @@ let s:enoimpl = "vim-misc %s: %s() hasn't been implemented for your platform! If
 let s:handlers = ['gnome-open', 'kde-open', 'exo-open', 'xdg-open', 'cygstart']
 
 if !exists('g:wsl_use_windows_apps')
-  let g:use_windows_apps = 1
+  let g:wsl_use_windows_apps = 1
 endif
 
 function! xolox#misc#open#file(location, ...) " {{{1
